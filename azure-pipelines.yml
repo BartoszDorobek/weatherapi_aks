@@ -27,7 +27,7 @@ stages:
         containerRegistry: 'bdorobek dockerhub'
         repository: 'bdorobek/weatherapi'
         command: 'buildAndPush'
-        Dockerfile: '**/Dockerfile'
+        Dockerfile: '$(Build.SourcesDirectory)/Dockerfile'
         tags: '$(tag)'
 #publish the manifest
     - task: PublishPipelineArtifact@1
@@ -39,7 +39,7 @@ stages:
   displayName: Deploy to Dev
   dependsOn: Build
   variables:
-    acrsecret: acrauth
+    acrsecret: k8sexamplesacrauth
   jobs:
   - job: Deploy
     displayName: Deploy to AKS
