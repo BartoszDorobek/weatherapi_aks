@@ -1,19 +1,19 @@
 apiVersion : apps/v1
 kind: Deployment
 metadata:
-  name: sampleapp 
+  name: weatherapi_aks 
 spec:
   replicas: #replicaNo#
   selector:
     matchLabels:
-      app: sampleapp
+      app: weatherapi_aks
   template:
     metadata:
       labels:
-        app: sampleapp 
+        app: weatherapi_aks 
     spec:
       containers:
-        - name: sampleapp 
-          image: k8sexamplesacr.azurecr.io/sampleapp
+        - name: weatherapi_aks 
+          image: bdorobek/weatherapi_aks
           ports:
           - containerPort: 80

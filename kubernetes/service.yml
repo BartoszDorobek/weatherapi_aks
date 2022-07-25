@@ -1,10 +1,10 @@
 apiVersion: v1
 kind: Service
 metadata:
-    name: sampleapp
+    name: weatherapi_aks
 spec:
     type: LoadBalancer
     ports:
     - port: 80 
     selector:
-        app: sampleapp
+        app: weatherapi_aks
