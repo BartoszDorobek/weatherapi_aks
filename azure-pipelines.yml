@@ -34,6 +34,12 @@ stages:
         azureSubscription: 'K8S ARM'
         scriptType: 'ps'
         scriptLocation: 'inlineScript'
+        inlineScript: 'az account set --subscription 065c2e96-b261-41ae-b2aa-90216491219f'
+    - task: AzureCLI@2
+      inputs:
+        azureSubscription: 'K8S ARM'
+        scriptType: 'ps'
+        scriptLocation: 'inlineScript'
         inlineScript: 'az aks get-credentials --resource-group aks_tf_rg --name WeatherapiCluster'
 #publish the manifest
     - task: PublishPipelineArtifact@1
