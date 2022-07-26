@@ -25,10 +25,16 @@ stages:
     - task: Docker@2
       inputs:
         containerRegistry: 'bdorobek dockerhub'
-        repository: 'bdorobek/weatherapi'
+        repository: 'bdorobek/weatherapi_aks'
         command: 'buildAndPush'
         Dockerfile: '$(Build.SourcesDirectory)/Dockerfile'
         tags: '$(tag)'
+    - task: AzureCLI@2
+      inputs:
+        azureSubscription: 'K8S ARM'
+        scriptType: 'ps'
+        scriptLocation: 'inlineScript'
+        inlineScript: 'az aks get-credentials --resource-group aks_tf_rg --name WeatherapiCluster'
 #publish the manifest
     - task: PublishPipelineArtifact@1
       inputs:
@@ -52,12 +58,7 @@ stages:
         buildType: 'current'
         artifactName: 'manifests'
         targetPath: '$(Pipeline.Workspace)/manifests'
-    - task: AzureCLI@2
-      inputs:
-        azureSubscription: 'K8S ARM'
-        scriptType: 'ps'
-        scriptLocation: 'inlineScript'
-        inlineScript: 'az aks get-credentials --resource-group aks_tf_rg --name WeatherapiCluster'
+
 #create the secret
     - task: KubernetesManifest@0
       displayName: Create imagePullSecret
